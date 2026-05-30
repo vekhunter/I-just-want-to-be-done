@@ -1,76 +1,42 @@
-// Practice with JavaScript Array Methods — Interactive Learning Page
-// All code is organized by section for clarity.
-
-// 1. forEach() Demonstration
-const steps = ['one', 'two', 'three'];
-console.log('forEach() demonstration:');
-steps.forEach(step => console.log(step));
-
-// 2. map() + Template Literals + DOM Injection
-const listItems = steps.map(step => `<li>${step}</li>`);
-document.addEventListener('DOMContentLoaded', () => {
-	document.querySelector('#myList').innerHTML = listItems.join('');
-});
-
-// 3. GPA Conversion Example (switch + map + reduce)
-function convert(grade) {
-	let points;
-	switch (grade) {
-		case 'A': points = 4; break;
-		case 'B': points = 3; break;
-		case 'C': points = 2; break;
-		case 'D': points = 1; break;
-		case 'F': points = 0; break;
-		default: alert('not a valid grade');
+const movies = [
+	{
+		title: "The Avengers",
+		imageSrc: "images/avengers.jpg",
+		imageAlt: "The Avengers Movie Poster",
+		date: "2012",
+		ages: "PG-13",
+		genre: "Action",
+		stars: ["Robert Downey Jr.", "Chris Evans", "Scarlett Johansson"],
+		description: "Earth's mightiest heroes must come together..."
+	},
+	{
+		title: "Interstellar",
+		imageSrc: "images/interstellar.jpg",
+		imageAlt: "Interstellar Movie Poster",
+		date: "2014",
+		ages: "PG-13",
+		genre: "Sci-Fi",
+		stars: ["Matthew McConaughey", "Anne Hathaway", "Jessica Chastain"],
+		description: "A team of explorers travel through a wormhole..."
 	}
-	return points;
-}
-const grades = ['A', 'B', 'C'];
-const gpaPoints = grades.map(convert);
-const totalPoints = gpaPoints.reduce((sum, val) => sum + val, 0);
-const averageGPA = (totalPoints / gpaPoints.length).toFixed(2);
-console.log('GPA Points:', gpaPoints);
-console.log('Total Points:', totalPoints);
-console.log('Average GPA:', averageGPA);
-document.addEventListener('DOMContentLoaded', () => {
-	document.querySelector('#gpaSummary').innerHTML = `
-		<strong>GPA Points:</strong> ${gpaPoints.join(', ')}<br>
-		<strong>Total Points:</strong> ${totalPoints}<br>
-		<strong>Average GPA:</strong> ${averageGPA}
-	`;
-});
-
-// 4. filter() Example
-const words = ['watermelon', 'peach', 'apple', 'tomato', 'grape'];
-const shortWords = words.filter(word => word.length < 6);
-console.log('Words with length < 6:', shortWords);
-document.addEventListener('DOMContentLoaded', () => {
-	document.querySelector('#filteredWords').textContent = shortWords.join(', ');
-});
-
-// 5. indexOf() Example
-const numbers = [12, 34, 21, 54];
-const luckyNumber = 21;
-const luckyIndex = numbers.indexOf(luckyNumber);
-console.log(`Index of lucky number (${luckyNumber}):`, luckyIndex);
-document.addEventListener('DOMContentLoaded', () => {
-	document.querySelector('#luckyIndex').textContent = luckyIndex;
-});
-
-// 6. Array of Objects — Student Directory
-const students = [
-	{last: 'Andrus', first: 'Aaron'},
-	{last: 'Masa', first:'Manny'},
-	{last: 'Tanda', first: 'Tamanda'}
+	// Add more movies as needed
 ];
-document.addEventListener('DOMContentLoaded', () => {
-	const container = document.querySelector('#studentDirectory');
-	students.forEach(student => {
-		const div = document.createElement('div');
-		div.className = 'format';
-		div.innerHTML = `<span>${student.first}</span> <span>${student.last}</span>`;
-		container.appendChild(div);
-		const hr = document.createElement('hr');
-		container.appendChild(hr);
-	});
+
+const movieList = document.querySelector('#movie-list');
+
+movies.forEach(movie => {
+	const article = document.createElement('article');
+	article.classList.add('movie');
+	const movieHTML = `
+		<img src="${movie.imageSrc}" alt="${movie.imageAlt}">
+		<h2>${movie.title}</h2>
+		<p><strong>Release:</strong> ${movie.date}</p>
+		<p><strong>Rated:</strong> ${movie.ages}</p>
+		<p><strong>Genre:</strong> ${movie.genre}</p>
+		<p><strong>Stars:</strong> ${movie.stars.length}</p>
+		<p>${movie.stars.join(", ")}</p>
+		<p>${movie.description}</p>
+	`;
+	article.innerHTML = movieHTML;
+	movieList.appendChild(article);
 });
